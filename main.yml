@@ -1,0 +1,23 @@
+name: Train Model
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Build and run Docker container
+      run: |
+        docker build -t my-model .
+        docker run my-model python run_pipeline.py
